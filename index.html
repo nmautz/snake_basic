@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake!</title>
+
+
+  <style>
+
+
+    .cell{
+
+      width: 40px;
+      height: 40px;
+      background-color: grey;
+    }
+
+    .snake{
+      background-color: green !important;
+    }
+
+    .snake-head{
+      background-color: rgb(0, 63, 0);
+    }
+
+    
+  </style>
+
+  <script>
+
+
+    function create_board(width, height){
+
+
+      const game_table = document.getElementById("game")
+
+      for(let i = 0; i < height; ++i){
+
+        const tr = document.createElement('tr')
+        for(let c = 0; c < width; ++c){
+          const td = document.createElement('td')
+          td.classList.add('cell')
+          tr.appendChild(td)
+        }
+
+        game_table.appendChild(tr)
+
+      }
+      
+    }
+
+    function get_cell(x,y){
+
+      const game_table = document.getElementById("game")
+      let rows = game_table.childNodes
+      let cols = rows[rows.length-y].childNodes
+      return cols[x-1]
+
+
+
+    }
+
+    function setup_snake(){
+
+
+
+
+    }
+
+    function update_board(input){
+
+      
+
+
+
+    }
+
+    function get_input(){
+
+      let up_count = 0
+      let left_count = 0
+      let right_count  = 0
+      let down_count = 0
+
+
+      for(const input of event_queue){
+
+        if(input== 37){
+          left_count++
+        }else if(input==39){
+          right_count++
+
+        }else if(input==40){
+          down_count++
+        }else if(input==38){
+          up_count++
+        }
+        
+      }
+
+      let max = Math.max
+
+      if(left_count == max){
+        return 'left'
+      }else if(right_count==max){
+        return 'right'
+      }else if(up_count){
+        return 'up'
+      }else if(down_count == max){
+        return 'down'
+      }else{
+        return -1
+      }
+
+    }
+
+    var event_queue = []
+
+    document.addEventListener("keydown", (event)=>{
+
+      console.log(event.keyCode)
+      event_queue.push(event.keyCode)
+
+
+    })
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+
+
+      const start_btn = document.getElementById("start-btn")
+
+      const height_input = document.getElementById("height-input")
+      const width_input = document.getElementById("width-input")
+      start_btn.addEventListener("click", ()=>{
+
+        let height = height_input.value
+        let width = width_input.value
+
+        create_board(width, height)
+
+        let game_loop = setInterval(() => {
+          
+          let input = get_input()
+          update_board(input)
+          get_cell(3,4).classList.add('snake-head')
+
+        }, 1000);
+
+
+
+      })
+
+  
+
+
+
+    })
+
+
+
+  </script>
+
+
+
+</head>
+<body>
+  
+
+  <p>Score: 0</p>
+
+  <table id="game">
+
+  </table>
+
+
+  <fieldset style="background-color: grey;">
+    <p>Width</p>
+    <input id="width-input" value="15">
+    <p>Height</p>
+    <input id="height-input" value="15">
+    <button id="start-btn">Start Game</button>
+
+
+  </fieldset>
+
+
+
+
+</body>
+</html>
