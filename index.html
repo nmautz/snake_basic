@@ -64,12 +64,66 @@
 
     function setup_snake(){
 
+      snake_head = [5,5]
+      snake_body = [[4,5], [3,5]]
+      snake_direction = 'right'
 
+    }
+
+    function clear_board(){
+      const game_table = document.getElementById("game")
+      while(game_table.childNodes[0] != undefined){
+        game_table.childNodes[0].remove()
+      }
+      
+
+
+    }
+
+    function move_snake(){
+
+      console.log(snake_direction)
+      let movement = [0,0]
+      if(snake_direction == 'left'){
+        movement = [-1,0]
+      }else if(snake_direction == 'right'){
+        movement = [1,0]
+      }else if(snake_direction == 'up'){
+        movement = [0,1]
+      }else{
+        movement = [0,-1]
+      }
+
+      snake_head[0] += movement[0]
+      snake_head[1] += movement[1]
+
+      for(const body of snake_body){
+        body[0] += movement[0]
+        body[1] += movement[1]
+      }
 
 
     }
 
     function update_board(input){
+
+
+      //check snake cant turn around
+      console.log(input)
+      if(input != -1){
+        snake_direction = input
+      }
+      console.log(snake_direction)
+      move_snake()
+
+      clear_board()
+      create_board(b_width, b_height)
+
+      get_cell(snake_head[0], snake_head[1]).classList.add('snake-head')
+      for(let i = 0; i < snake_body.length; ++i){
+        get_cell(snake_body[i][0], snake_body[i][1]).classList.add('snake')
+      }
+
 
       
 
@@ -97,16 +151,23 @@
         }else if(input==38){
           up_count++
         }
+
         
       }
 
-      let max = Math.max
+
+      let max = Math.max(up_count,down_count,left_count,right_count)
+      if(event_queue.length ==0){
+        return -1
+      }
+      event_queue = []
+
 
       if(left_count == max){
         return 'left'
       }else if(right_count==max){
         return 'right'
-      }else if(up_count){
+      }else if(up_count ==max){
         return 'up'
       }else if(down_count == max){
         return 'down'
@@ -122,6 +183,7 @@
 
       console.log(event.keyCode)
       event_queue.push(event.keyCode)
+      event.preventDefault()
 
 
     })
@@ -135,16 +197,17 @@
       const width_input = document.getElementById("width-input")
       start_btn.addEventListener("click", ()=>{
 
-        let height = height_input.value
-        let width = width_input.value
+        b_height = height_input.value
+        b_width = width_input.value
 
-        create_board(width, height)
+        create_board(b_width, b_height)
+        setup_snake()
+
 
         let game_loop = setInterval(() => {
           
           let input = get_input()
           update_board(input)
-          get_cell(3,4).classList.add('snake-head')
 
         }, 1000);
 
