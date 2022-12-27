@@ -94,13 +94,14 @@
         movement = [0,-1]
       }
 
+
+
+      snake_body.push([snake_head[0], snake_head[1]])
+      snake_body.shift()
       snake_head[0] += movement[0]
       snake_head[1] += movement[1]
 
-      for(const body of snake_body){
-        body[0] += movement[0]
-        body[1] += movement[1]
-      }
+      console.log(snake_body)
 
 
     }
@@ -209,7 +210,7 @@
           let input = get_input()
           update_board(input)
 
-        }, 1000);
+        }, 700);
 
 
 
