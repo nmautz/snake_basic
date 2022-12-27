@@ -25,6 +25,13 @@
       background-color: rgb(0, 63, 0);
     }
 
+    .fruit{
+
+      background-color: blueviolet;
+
+
+    }
+
     
   </style>
 
@@ -61,6 +68,22 @@
 
 
     }
+
+    function place_fruit(){
+      let locY = Math.floor(Math.random() * b_height)
+      let locX = Math.floor(Math.random() * b_width)
+
+      fruit_cell = [locX, locY]
+      console.log(fruit_cell)
+
+      console.log("cell: " + get_cell(locX,locY))
+
+      get_cell(locX, locY).classList.add('fruit')
+
+
+
+    }
+
 
     function setup_snake(){
 
@@ -124,6 +147,7 @@
       for(let i = 0; i < snake_body.length; ++i){
         get_cell(snake_body[i][0], snake_body[i][1]).classList.add('snake')
       }
+      place_fruit()
 
 
       
@@ -184,7 +208,7 @@
 
       console.log(event.keyCode)
       event_queue.push(event.keyCode)
-      event.preventDefault()
+      //event.preventDefault()
 
 
     })
