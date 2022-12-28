@@ -38,6 +38,7 @@
   <script>
 
 
+    score =0
     function create_board(width, height){
 
 
@@ -70,18 +71,11 @@
     }
 
     function place_fruit(){
-      let locY = Math.floor(Math.random() * b_height)
-      let locX = Math.floor(Math.random() * b_width)
+      let locY = Math.floor(Math.random() * b_height)+1
+      let locX = Math.floor(Math.random() * b_width)+1
 
       fruit_cell = [locX, locY]
-      console.log(fruit_cell)
-
-      console.log("cell: " + get_cell(locX,locY))
-
-      get_cell(locX, locY).classList.add('fruit')
-
-
-
+      console.log("locx"+locX + " locy: " + locY)
     }
 
 
@@ -105,7 +99,6 @@
 
     function move_snake(){
 
-      console.log(snake_direction)
       let movement = [0,0]
       if(snake_direction == 'left'){
         movement = [-1,0]
@@ -124,7 +117,6 @@
       snake_head[0] += movement[0]
       snake_head[1] += movement[1]
 
-      console.log(snake_body)
 
 
     }
@@ -133,12 +125,16 @@
 
 
       //check snake cant turn around
-      console.log(input)
       if(input != -1){
         snake_direction = input
       }
-      console.log(snake_direction)
       move_snake()
+
+      if(snake_head[0] == fruit_cell[0] && snake_head[1] == fruit_cell[1]){
+        score++;
+        document.getElementById('score-txt').innerHTML = "Score: "+ score
+        place_fruit()
+      }
 
       clear_board()
       create_board(b_width, b_height)
@@ -147,8 +143,8 @@
       for(let i = 0; i < snake_body.length; ++i){
         get_cell(snake_body[i][0], snake_body[i][1]).classList.add('snake')
       }
-      place_fruit()
 
+      get_cell(fruit_cell[0], fruit_cell[1]).classList.add('fruit')
 
       
 
@@ -206,9 +202,8 @@
 
     document.addEventListener("keydown", (event)=>{
 
-      console.log(event.keyCode)
       event_queue.push(event.keyCode)
-      //event.preventDefault()
+      event.preventDefault()
 
 
     })
@@ -227,6 +222,8 @@
 
         create_board(b_width, b_height)
         setup_snake()
+        place_fruit()
+
 
 
         let game_loop = setInterval(() => {
@@ -256,7 +253,7 @@
 <body>
   
 
-  <p>Score: 0</p>
+  <p id='score-txt'>Score: 0</p>
 
   <table id="game">
 
