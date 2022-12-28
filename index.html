@@ -203,49 +203,36 @@
     }
 
     function get_input(){
-
-      let up_count = 0
-      let left_count = 0
-      let right_count  = 0
-      let down_count = 0
-
-
-      for(const input of event_queue){
-
-        if(input== 37){
-          left_count++
-        }else if(input==39){
-          right_count++
-
-        }else if(input==40){
-          down_count++
-        }else if(input==38){
-          up_count++
-        }
-
-        
+      
+      let input = -1
+      if(event_queue.length == 1){
+        input = event_queue[0]
+        event_queue = []
+      }else if(event_queue.length==2){
+        input = event_queue[0]
+        let next_input = event_queue[1]
+        event_queue = []
+        event_queue.push(next_input)
+  
+      }else if(event_queue.length > 2){
+        input = event_queue[event_queue.length-2]
+        let next_input = event_queue[event_queue.length-1]
+        event_queue = []
+        event_queue.push(next_input)
       }
 
-
-      let max = Math.max(up_count,down_count,left_count,right_count)
-      if(event_queue.length ==0){
-        return -1
-      }
-      event_queue = []
-
-
-      if(left_count == max){
+      if(input== 37){
         return 'left'
-      }else if(right_count==max){
+      }else if(input==39){
         return 'right'
-      }else if(up_count ==max){
-        return 'up'
-      }else if(down_count == max){
+      }else if(input==40){
         return 'down'
-      }else{
-        return -1
-      }
+      }else if(input==38){
+        return 'up'
+      } 
 
+      return -1
+      
     }
 
     var event_queue = []
