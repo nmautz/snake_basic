@@ -61,10 +61,15 @@
 
     function get_cell(x,y){
 
-      const game_table = document.getElementById("game")
-      let rows = game_table.childNodes
-      let cols = rows[rows.length-y].childNodes
-      return cols[x-1]
+      try{
+        const game_table = document.getElementById("game")
+        let rows = game_table.childNodes
+        let cols = rows[rows.length-y].childNodes
+        return cols[x-1]
+      }catch{
+        return undefined
+      }
+ 
 
 
 
@@ -121,6 +126,26 @@
 
     }
 
+    function check_collision(){
+      if((snake_head[0] <= 0 || snake_head[0] > b_width) || (snake_head[1] <= 0 || snake_head[1] > b_height)){
+        end_game()
+        return true;
+      }
+      return false;
+    }
+
+
+    function end_game(){
+      if(game_loop != undefined){
+
+        clearInterval(game_loop)
+        clear_board()
+
+      }
+      alert("Game over.\nScore: " + score)
+
+    }
+
     function update_board(input){
 
 
@@ -129,6 +154,11 @@
         snake_direction = input
       }
       move_snake()
+
+      if(check_collision()){
+        return
+      }
+
 
       if(snake_head[0] == fruit_cell[0] && snake_head[1] == fruit_cell[1]){
         score++;
@@ -226,7 +256,7 @@
 
 
 
-        let game_loop = setInterval(() => {
+        game_loop = setInterval(() => {
           
           let input = get_input()
           update_board(input)
