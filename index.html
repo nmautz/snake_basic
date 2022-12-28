@@ -262,11 +262,39 @@
     document.addEventListener("DOMContentLoaded", ()=>{
 
 
+      const easy_btn = document.getElementById('easy-btn')
+      const normal_btn = document.getElementById('normal-btn')
+      const hard_btn = document.getElementById('hard-btn')
+
       const start_btn = document.getElementById("start-btn")
 
       const height_input = document.getElementById("height-input")
       const width_input = document.getElementById("width-input")
       const speed_input = document.getElementById('snake-speed-input')
+
+      easy_btn.addEventListener("click", ()=>{
+
+        height_input.value = 10
+        width_input.value = 10
+        speed_input.value = 250
+
+
+      })
+      normal_btn.addEventListener("click", ()=>{
+        height_input.value = 15
+        width_input.value = 15
+        speed_input.value = 160
+
+      })
+
+      hard_btn.addEventListener("click", ()=>{
+        height_input.value = 15
+        width_input.value = 15
+        speed_input.value = 120
+
+
+      })
+
       start_btn.addEventListener("click", ()=>{
         let speed = speed_input.value
 
@@ -315,13 +343,37 @@
 
 
   <fieldset style="background-color: grey;">
-    <p>Width</p>
-    <input id="width-input" value="15" type="text">
-    <p>Height</p>
-    <input id="height-input" value="15" type="text">
-    <p>Snake speed (ms)</p>
-    <input type="number" id="snake-speed-input" value="200">
+
+    <label>Controls</label><br>
     <button id="start-btn">Start Game</button>
+
+
+    <fieldset>
+      <label>Difficulty</label>
+
+
+
+      <button id="easy-btn">Easy</button>
+      <button id="normal-btn">Normal</button>
+      <button id="hard-btn">Hard</button>
+
+    </fieldset>
+
+    <fieldset>
+      <label>Game Properties</label>
+
+      <p>Width</p>
+      <input id="width-input" value="15" type="text">
+      <p>Height</p>
+      <input id="height-input" value="15" type="text">
+
+      <p>Snake speed (ms)</p>
+
+      <input type="number" id="snake-speed-input" value="200">
+
+    </fieldset>
+
+
 
 
   </fieldset>
