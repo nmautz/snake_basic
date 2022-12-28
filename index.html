@@ -39,6 +39,7 @@
 
 
     score =0
+    snake_extend=0
     function create_board(width, height){
 
 
@@ -118,7 +119,11 @@
 
 
       snake_body.push([snake_head[0], snake_head[1]])
-      snake_body.shift()
+      if(snake_extend==0){
+        snake_body.shift()
+      }else{
+        snake_extend--;
+      }
       snake_head[0] += movement[0]
       snake_head[1] += movement[1]
 
@@ -154,6 +159,10 @@
 
     }
 
+    function extend_snake(){
+      snake_extend++
+    }
+
     function update_board(input){
 
 
@@ -172,6 +181,7 @@
         score++;
         document.getElementById('score-txt').innerHTML = "Score: "+ score
         place_fruit()
+        extend_snake()
       }
 
       clear_board()
