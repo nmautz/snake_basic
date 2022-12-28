@@ -266,7 +266,10 @@
 
       const height_input = document.getElementById("height-input")
       const width_input = document.getElementById("width-input")
+      const speed_input = document.getElementById('snake-speed-input')
       start_btn.addEventListener("click", ()=>{
+        let speed = speed_input.value
+
 
         b_height = height_input.value
         b_width = width_input.value
@@ -282,7 +285,7 @@
           let input = get_input()
           update_board(input)
 
-        }, 300);
+        }, speed);
 
 
 
@@ -316,6 +319,8 @@
     <input id="width-input" value="15" type="text">
     <p>Height</p>
     <input id="height-input" value="15" type="text">
+    <p>Snake speed (ms)</p>
+    <input type="number" id="snake-speed-input" value="200">
     <button id="start-btn">Start Game</button>
 
 
