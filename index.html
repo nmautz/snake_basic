@@ -251,7 +251,10 @@
     document.addEventListener("keydown", (event)=>{
 
       event_queue.push(event.keyCode)
-      event.preventDefault()
+      if(event.keyCode <=40 && event.keyCode >=37){
+        event.preventDefault()
+      }
+      
 
 
     })
@@ -279,7 +282,7 @@
           let input = get_input()
           update_board(input)
 
-        }, 700);
+        }, 300);
 
 
 
@@ -310,9 +313,9 @@
 
   <fieldset style="background-color: grey;">
     <p>Width</p>
-    <input id="width-input" value="15">
+    <input id="width-input" value="15" type="text">
     <p>Height</p>
-    <input id="height-input" value="15">
+    <input id="height-input" value="15" type="text">
     <button id="start-btn">Start Game</button>
 
 
