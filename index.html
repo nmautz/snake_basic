@@ -81,6 +81,17 @@
       let locX = Math.floor(Math.random() * b_width)+1
 
       fruit_cell = [locX, locY]
+      if(fruit_cell[0] == snake_head[0] && fruit_cell[1] == snake_head[1]){
+        place_fruit()
+        return
+      }
+
+      for(const body of snake_body){
+        if(body[0] == fruit_cell[0] && body[1] == fruit_cell[1]){
+          place_fruit()
+          return
+        }
+      }
       console.log("locx"+locX + " locy: " + locY)
     }
 
