@@ -131,6 +131,14 @@
         end_game()
         return true;
       }
+
+
+      for(const body of snake_body){
+        if(snake_head[0] == body[0] && snake_head[1] == body[1]){
+          end_game()
+          return true;
+        }
+      }
       return false;
     }
 
