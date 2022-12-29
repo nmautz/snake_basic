@@ -251,7 +251,18 @@
     document.addEventListener("keydown", (event)=>{
 
       event_queue.push(event.keyCode)
-      if(event.keyCode <=40 && event.keyCode >=37){
+      if(event.keyCode == 32){
+
+        if(game_stopped){
+          start_gameloop()
+        }else{
+          clearInterval(game_loop)
+        }
+        game_stopped = !game_stopped
+      
+      }
+
+      if((event.keyCode <=40 && event.keyCode >=37) || event.keyCode == 32){
         event.preventDefault()
       }
       
@@ -296,7 +307,7 @@
       })
 
       start_btn.addEventListener("click", ()=>{
-        let speed = speed_input.value
+        speed = speed_input.value
 
 
         b_height = height_input.value
@@ -306,14 +317,12 @@
         setup_snake()
         place_fruit()
 
+        game_stopped = false
+        start_gameloop()
 
 
-        game_loop = setInterval(() => {
-          
-          let input = get_input()
-          update_board(input)
 
-        }, speed);
+
 
 
 
@@ -324,6 +333,15 @@
 
 
     })
+
+    function start_gameloop(){
+      game_loop = setInterval(() => {
+          
+          let input = get_input()
+          update_board(input)
+
+        }, speed);
+    }
 
 
 
