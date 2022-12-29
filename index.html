@@ -160,6 +160,13 @@
 
 
     function end_game(){
+
+      if(isAudioPlaying){
+        audio.pause()
+        audio = new Audio('https://www.chosic.com/wp-content/uploads/2022/03/Powerful-Trap-.mp3')
+        isAudioPlaying=false
+      }
+
       if(game_loop != undefined){
 
         clearInterval(game_loop)
@@ -256,6 +263,10 @@
         if(game_stopped){
           start_gameloop()
         }else{
+          if(isAudioPlaying){
+            audio.pause()
+            isAudioPlaying=false
+          }
           clearInterval(game_loop)
         }
         game_stopped = !game_stopped
@@ -317,7 +328,11 @@
         setup_snake()
         place_fruit()
 
+
+        audio = new Audio('https://www.chosic.com/wp-content/uploads/2022/03/Powerful-Trap-.mp3')
+
         game_stopped = false
+        isAudioPlaying = false
         start_gameloop()
 
 
@@ -335,6 +350,10 @@
     })
 
     function start_gameloop(){
+      if(!isAudioPlaying){
+        audio.play()
+        isAudioPlaying = true
+      }
       game_loop = setInterval(() => {
           
           let input = get_input()
