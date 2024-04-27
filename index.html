@@ -44,6 +44,7 @@
     isAudioPlaying = false
     speed = 0 // will be changed by start_game()
     audio = null
+    active_game = false
     function create_board(width, height){
 
 
@@ -67,6 +68,7 @@
         const speed_input = document.getElementById('snake-speed-input')
         const height_input = document.getElementById("height-input")
         const width_input = document.getElementById("width-input")
+        active_game = true
  
         speed = speed_input.value
 
@@ -199,6 +201,7 @@
         clear_board()
 
       }
+      active_game = false
       alert("Game over.\nScore: " + score)
       score = 0
       document.getElementById('score-txt').innerHTML = "Score: "+ score
@@ -299,7 +302,7 @@
 
       //if enter pressed
       if(event.keyCode == 13){
-        if(game_stopped){
+        if(!active_game){
           start_game()
         }
       }
