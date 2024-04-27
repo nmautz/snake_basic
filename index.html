@@ -40,6 +40,10 @@
 
     score =0
     snake_extend=0
+    game_stopped = true
+    isAudioPlaying = false
+    speed = 0 // will be changed by start_game()
+    audio = null
     function create_board(width, height){
 
 
@@ -59,6 +63,28 @@
       }
       
     }
+    function start_game(){
+        const speed_input = document.getElementById('snake-speed-input')
+        const height_input = document.getElementById("height-input")
+        const width_input = document.getElementById("width-input")
+ 
+        speed = speed_input.value
+
+
+        b_height = height_input.value
+        b_width = width_input.value
+
+        create_board(b_width, b_height)
+        setup_snake()
+        place_fruit()
+
+
+        audio = new Audio('https://www.chosic.com/wp-content/uploads/2022/03/Powerful-Trap-.mp3')
+
+        game_stopped = false
+        isAudioPlaying = false
+        start_gameloop()
+      }
 
     function get_cell(x,y){
 
@@ -258,6 +284,7 @@
     document.addEventListener("keydown", (event)=>{
 
       event_queue.push(event.keyCode)
+      //if space pressed
       if(event.keyCode == 32){
 
         if(game_stopped){
@@ -270,8 +297,15 @@
       
       }
 
-      // if keycode 37-40 (arrow keys) or 32(space)
-      if((event.keyCode <=40 && event.keyCode >=37) || event.keyCode == 32){
+      //if enter pressed
+      if(event.keyCode == 13){
+        if(game_stopped){
+          start_game()
+        }
+      }
+
+      // if keycode 37-40 (arrow keys) or 32(space) or 13 (enter)
+      if((event.keyCode <=40 && event.keyCode >=37) || event.keyCode == 32 || event.keyCode == 13){
         event.preventDefault()
       }
       
@@ -315,24 +349,6 @@
 
       })
 
-      function start_game(){
-        speed = speed_input.value
-
-
-        b_height = height_input.value
-        b_width = width_input.value
-
-        create_board(b_width, b_height)
-        setup_snake()
-        place_fruit()
-
-
-        audio = new Audio('https://www.chosic.com/wp-content/uploads/2022/03/Powerful-Trap-.mp3')
-
-        game_stopped = false
-        isAudioPlaying = false
-        start_gameloop()
-      }
 
       start_btn.addEventListener("click", ()=>{
         start_game()
