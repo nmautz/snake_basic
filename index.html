@@ -263,10 +263,7 @@
         if(game_stopped){
           start_gameloop()
         }else{
-          if(isAudioPlaying){
-            audio.pause()
-            isAudioPlaying=false
-          }
+          audio.volume = 0.2
           clearInterval(game_loop)
         }
         game_stopped = !game_stopped
@@ -350,6 +347,7 @@
     })
 
     function start_gameloop(){
+      audio.volume = 1
       if(!isAudioPlaying){
         audio.play()
         isAudioPlaying = true
@@ -400,9 +398,9 @@
       <label>Game Properties</label>
 
       <p>Width</p>
-      <input id="width-input" value="15" type="text">
+      <input id="width-input" value="15" type="number">
       <p>Height</p>
-      <input id="height-input" value="15" type="text">
+      <input id="height-input" value="15" type="number">
 
       <p>Snake speed (ms)</p>
 
