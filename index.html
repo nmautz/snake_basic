@@ -314,7 +314,7 @@
 
       })
 
-      start_btn.addEventListener("click", ()=>{
+      function start_game(){
         speed = speed_input.value
 
 
@@ -331,13 +331,10 @@
         game_stopped = false
         isAudioPlaying = false
         start_gameloop()
+      }
 
-
-
-
-
-
-
+      start_btn.addEventListener("click", ()=>{
+        start_game()
       })
 
   
